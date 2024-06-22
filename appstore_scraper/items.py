@@ -6,7 +6,9 @@
 import scrapy
 
 
-class AppstoreScraperItem(scrapy.Item):
+class App(scrapy.Item):
     # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    name = scrapy.Field()
+    user_rating = scrapy.Field()
+    developer = scrapy.Field()
+    price = scrapy.Field()
