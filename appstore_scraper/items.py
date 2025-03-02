@@ -12,3 +12,4 @@ class App(scrapy.Item):
     user_rating = scrapy.Field()
     developer = scrapy.Field()
     price = scrapy.Field()
+    url = scrapy.Field()
