@@ -28,6 +28,7 @@ def main():
     parser.add_argument('--resume', action='store_true', help='Resume a previously paused crawl')
     parser.add_argument('--output', type=str, default='apps.json', help='Output file path (default: apps.json)')
     parser.add_argument('--format', type=str, default='json', help='Output format (default: json)')
+    parser.add_argument('--verbose', action='store_true', help='Enable verbose logging')
     args = parser.parse_args()
     
     # Register the signal handler for SIGINT (Ctrl+C)
@@ -35,6 +36,11 @@ def main():
     
     # Get project settings
     settings = get_project_settings()
+    
+    # Override logging settings if verbose mode is not enabled
+    if not args.verbose:
+        settings.set('LOG_ENABLED', False)
+        settings.set('LOG_LEVEL', 'ERROR')
     
     # Create the job directory if it doesn't exist
     job_dir = settings.get('JOBDIR')
@@ -65,11 +71,11 @@ def main():
         output_format=args.format
     )
     
-    # Print status message
+    # Print minimal status message
     if args.resume:
-        print(f"Resuming previous crawl. Output will be appended to: {args.output}")
+        print(f"Resuming previous crawl. Output: {args.output}")
     else:
-        print(f"Starting new crawl. Output will be saved to: {args.output}")
+        print(f"Starting new crawl. Output: {args.output}")
     print("Press Ctrl+C once to pause the crawl.")
     
     # Start the crawling process

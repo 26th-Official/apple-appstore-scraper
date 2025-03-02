@@ -56,9 +56,9 @@ ROBOTSTXT_OBEY = False
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
-#EXTENSIONS = {
-#    "scrapy.extensions.telnet.TelnetConsole": None,
-#}
+EXTENSIONS = {
+    'appstore_scraper.extensions.InPlaceCounterExtension': 100,
+}
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
@@ -102,3 +102,7 @@ SCHEDULER_PERSIST = True
 SCHEDULER_DISK_QUEUE = 'scrapy.squeues.PickleLifoDiskQueue'
 SCHEDULER = 'scrapy.core.scheduler.Scheduler'
 DUPEFILTER_CLASS = 'scrapy.dupefilters.RFPDupeFilter'
+
+# Minimize logging
+LOG_LEVEL = 'ERROR'  # Only show error messages
+LOG_ENABLED = False  # Disable logging completely (except for critical errors)

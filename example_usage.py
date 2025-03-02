@@ -54,30 +54,12 @@ def run_until_count(output_file, target_count, resume=False):
     print(f"Process PID: {process.pid}")
     
     try:
-        while True:
-            # Check if the process is still running
-            if process.poll() is not None:
-                stdout, stderr = process.communicate()
-                print("Process ended unexpectedly")
-                print(f"Output: {stdout}")
-                if stderr:
-                    print(f"Errors: {stderr}")
-                break
-            
-            # Check the current count
-            current_count = count_items_in_file(output_file)
-            print(f"{datetime.now().strftime('%H:%M:%S')} - Current count: {current_count} items")
-            
-            # If we've reached the target count, pause the spider
-            if current_count >= target_count:
-                print(f"Reached target count of {target_count} items. Pausing spider...")
-                process.terminate()
-                stdout, stderr = process.communicate()
-                print("Spider paused successfully")
-                break
-            
-            # Wait before checking again
-            time.sleep(5)
+        # We don't need to check the count ourselves anymore since the extension will show it
+        # Just wait for the process to finish or for the user to interrupt
+        process.wait()
+        stdout, stderr = process.communicate()
+        if stderr and stderr.strip():
+            print(f"Errors: {stderr}")
     
     except KeyboardInterrupt:
         print("Manually interrupted. Pausing spider...")

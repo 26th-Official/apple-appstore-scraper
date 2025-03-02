@@ -38,9 +38,8 @@ def main():
     process.terminate()
     stdout, stderr = process.communicate()
     
-    print("Spider output:")
-    print(stdout)
-    if stderr:
+    # Only print errors if there are any
+    if stderr and stderr.strip():
         print("Errors:")
         print(stderr)
     
@@ -83,9 +82,8 @@ def main():
     resume_process.terminate()
     resume_stdout, resume_stderr = resume_process.communicate()
     
-    print("Resumed spider output:")
-    print(resume_stdout)
-    if resume_stderr:
+    # Only print errors if there are any
+    if resume_stderr and resume_stderr.strip():
         print("Errors:")
         print(resume_stderr)
     
