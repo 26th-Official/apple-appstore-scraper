@@ -47,7 +47,7 @@ class AppsSpider(SitemapSpider):
                 'user_rating': data['attributes']['userRating'],
                 'developer': data['relationships']['developer'],
                 'price': data['attributes']['platformAttributes']['ios']['offers'][0]['price'],
+                'url': response.url.replace('https://apps.apple.com', ''),  # Strip base URL from the app URL
             }
         )
-
 
