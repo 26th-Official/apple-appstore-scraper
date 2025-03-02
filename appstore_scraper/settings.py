@@ -91,3 +91,14 @@ ROBOTSTXT_OBEY = False
 REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
+
+# Job persistence settings for pausing and resuming crawls
+JOBDIR = 'crawls/appstore-jobs'
+
+# Enable disk-based request queue persistence
+SCHEDULER_PERSIST = True
+
+# Enable disk-based dupefilter persistence
+SCHEDULER_DISK_QUEUE = 'scrapy.squeues.PickleLifoDiskQueue'
+SCHEDULER = 'scrapy.core.scheduler.Scheduler'
+DUPEFILTER_CLASS = 'scrapy.dupefilters.RFPDupeFilter'

@@ -14,6 +14,26 @@ class AppsSpider(SitemapSpider):
     sitemap_rules = [
         ('/us/', 'parse'),
     ]
+    
+    def __init__(self, output_file='apps.json', output_format='json', *args, **kwargs):
+        """Initialize the spider with output file and format parameters."""
+        super(AppsSpider, self).__init__(*args, **kwargs)
+        self.output_file = output_file
+        self.output_format = output_format
+        
+        # Set the feed export settings
+        self.custom_settings = {
+            'FEEDS': {
+                output_file: {
+                    'format': output_format,
+                    'encoding': 'utf8',
+                    'store_empty': False,
+                    'overwrite': False,  # Append to existing file if resuming
+                }
+            }
+        }
+        
+        self.logger.info(f"Spider initialized with output file: {output_file}, format: {output_format}")
 
     def parse(self, response):
         script = response.xpath('//script[@id="shoebox-media-api-cache-apps"]/text()').get()
